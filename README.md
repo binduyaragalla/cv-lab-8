@@ -32,7 +32,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Function to display images
+
 def show_image(title, img, cmap=None):
     plt.figure(figsize=(8, 8))
     plt.title(title)
@@ -45,28 +45,28 @@ def show_image(title, img, cmap=None):
     plt.axis('off')
     plt.show()
 
-# Load the image
+
 img = cv2.imread('input_image.jpg')
 
 if img is None:
     print("Error: Image not found.")
 else:
-    # Convert to grayscale
+    
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # Convert to float32
+    
     gray = np.float32(gray)
 
-    # Apply Harris Corner Detector
+   
     dst = cv2.cornerHarris(gray, 2, 3, 0.04)
 
-    # Dilate the result
+   
     dst = cv2.dilate(dst, None)
 
-    # Mark detected corners in red
+   
     img[dst > 0.01 * dst.max()] = [0, 0, 255]
 
-    # Display output
+   
     show_image("Harris Corner Detection", img)
 
 Output Image
