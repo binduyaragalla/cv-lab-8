@@ -34,40 +34,32 @@ import matplotlib.pyplot as plt
 
 
 def show_image(title, img, cmap=None):
-    plt.figure(figsize=(8, 8))
-    plt.title(title)
+  plt.figure(figsize=(8, 8))
+  plt.title(title)
+  if cmap:
+    plt.imshow(img, cmap=cmap)
+  else:
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+  plt.axis('off')
+  plt.show()
 
-    if cmap:
-        plt.imshow(img, cmap=cmap)
-    else:
-        plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-
-    plt.axis('off')
-    plt.show()
-
-
-img = cv2.imread('input_image.jpg')
+img = cv2.imread('/content/darling-prabhas.jpg')
 
 if img is None:
-    print("Error: Image not found.")
+  print("Error: Image not found.")
 else:
-    
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    
-    gray = np.float32(gray)
+  gray = np.float32(gray)
 
-   
-    dst = cv2.cornerHarris(gray, 2, 3, 0.04)
+dst = cv2.cornerHarris(gray, 2, 3, 0.04)
 
-   
-    dst = cv2.dilate(dst, None)
+dst = cv2.dilate(dst, None)
 
-   
-    img[dst > 0.01 * dst.max()] = [0, 0, 255]
+img[dst > 0.01 * dst.max()] = [0, 0, 255]
 
-   
-    show_image("Harris Corner Detection", img)
+show_image("Harris Corner Detection", img)
+
 
 Output Image
 
